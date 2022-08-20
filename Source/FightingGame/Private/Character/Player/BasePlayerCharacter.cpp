@@ -1,6 +1,7 @@
 #include "Character/Player/BasePlayerCharacter.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 ABasePlayerCharacter::ABasePlayerCharacter()
 {
@@ -12,9 +13,23 @@ ABasePlayerCharacter::ABasePlayerCharacter()
 	
 }
 
+void ABasePlayerCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	GetCharacterMovement()->MaxWalkSpeed = WalkingSpeed;
+}
+
 void ABasePlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	PlayerInputComponent->BindAxis("MoveRight", this, &ABasePlayerCharacter::MoveRight);
+
+}
+
+void ABasePlayerCharacter::MoveRight(float Val)
+{
+	AddMovementInput(GetActorForwardVector(), Val);
 }
 

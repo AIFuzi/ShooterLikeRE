@@ -12,6 +12,12 @@ class FIGHTINGGAME_API ABasePlayerCharacter : public ACharacter
 public:
 
 	ABasePlayerCharacter();
+
+protected:
+
+	virtual void BeginPlay() override;
+
+public:
 	
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
@@ -20,4 +26,15 @@ public:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Player")
 	class UCameraComponent* PlayerCamera;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement")
+	float WalkingSpeed;
+
+private:
+
+	void MoveRight(float Val);
+
 };
+
+
+
